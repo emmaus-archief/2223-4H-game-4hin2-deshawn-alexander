@@ -18,3 +18,15 @@ https://emmauscollege.github.io/informatica/game/
 - icon <br>
         http://www.iconarchive.com/show/android-lollipop-icons-by-dtafalonso/Play-Games-icon.html
 - ...
+- Platformer
+1.  display aanpassen en aanmaken
+2. css aanpassen van display
+3. het toevoegen van vogels
+4. grond toevoegen
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+11. 
