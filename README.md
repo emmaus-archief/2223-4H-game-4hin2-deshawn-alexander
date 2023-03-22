@@ -19,8 +19,18 @@ https://emmauscollege.github.io/informatica/game/
         http://www.iconarchive.com/show/android-lollipop-icons-by-dtafalonso/Play-Games-icon.html
 - ...
 - Platformer
-1.  display aanpassen en aanmaken
-2. css aanpassen van display
+1.( display aanpassen en aanmaken)
+2. (css aanpassen van display)
+  speler beweegt naar links en rechts
+  speler kan niet van het scherm af
+    maak teller die afloopt van 50 sec tot 0 sec
+  game over als 0 seconde
+  teken einddeur van je game
+  game over als speler op einddeur staat en tijd over zijn de punten
+
+   sprineng
+  blok tekenen
+  zorg dat je niet door lok kan maar eroverheen moet
 3. het toevoegen van vogels
 4. grond toevoegen
 5. 
