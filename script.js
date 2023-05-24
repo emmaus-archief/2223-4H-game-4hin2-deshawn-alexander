@@ -1,13 +1,4 @@
-
-
-
-
-
-
-
-
-
-/* Game opdracht
+      /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
 
@@ -26,15 +17,14 @@
 /* ********************************************* */
 const SPELEN = 1;
 const GAMEOVER = 2;
+const UITLEG = 8;
 var spelStatus = SPELEN;
 
 var spelerX = 550; // x-positie van speler
 var spelerY = 550; // y-positie van speler
+
 var vijandX = 600; 
 var vijandY = 600;
-
-var img; //plaatje
-
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -90,9 +80,7 @@ var tekenAlles = function() {
   rect(spelerX - 25, spelerY - 25, 50, 50);
   fill("black");
   ellipse(spelerX, spelerY, 10, 10);
-function setup() {
-  image(img, 0, 0);
-}
+
   // punten en health
 
 };
@@ -102,6 +90,11 @@ function setup() {
  * anders return false
  */
 var checkGameOver = function() {
+  if (spelerX - vijandX < 50 &&
+     spelerX - vijandX >-50 &&
+      spelerY - vijandY <50 &&
+      spelerY - vijandY > -50){ console.log ("Botsing") ;
+                              }
   // check of HP 0 is , of tijd op is, of ...
   return false;
 };
@@ -109,9 +102,7 @@ var checkGameOver = function() {
 /* ********************************************* */
 /* setup() en draw() functies / hoofdprogramma   */
 /* ********************************************* */
-function preload() {
-  img = loadImage('2dninja.png');
-}
+
 /**
  * setup
  * de code in deze functie wordt één keer uitgevoerd door
@@ -142,5 +133,9 @@ function draw() {
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
 
-  }
+  } 
+    if (spelStatus=== UITLEG){
+  // teken uitleg scherm
+    }
+  
 }
