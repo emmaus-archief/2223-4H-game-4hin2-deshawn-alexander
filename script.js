@@ -1,4 +1,13 @@
-      /* Game opdracht
+
+
+
+
+
+
+
+
+
+/* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
 
@@ -21,9 +30,11 @@ var spelStatus = SPELEN;
 
 var spelerX = 550; // x-positie van speler
 var spelerY = 550; // y-positie van speler
-
 var vijandX = 600; 
 var vijandY = 600;
+
+var img; //plaatje
+
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -79,7 +90,9 @@ var tekenAlles = function() {
   rect(spelerX - 25, spelerY - 25, 50, 50);
   fill("black");
   ellipse(spelerX, spelerY, 10, 10);
-
+function setup() {
+  image(img, 0, 0);
+}
   // punten en health
 
 };
@@ -96,7 +109,9 @@ var checkGameOver = function() {
 /* ********************************************* */
 /* setup() en draw() functies / hoofdprogramma   */
 /* ********************************************* */
-
+function preload() {
+  img = loadImage('2dninja.png');
+}
 /**
  * setup
  * de code in deze functie wordt één keer uitgevoerd door
