@@ -22,9 +22,9 @@ var spelStatus = SPELEN;
 
 var spelerX = 550; // x-positie van speler
 var spelerY = 550; // y-positie van speler
-
-var vijandX = 600; 
-var vijandY = 600;
+var aantal  = 0;
+var vijandX = 650; 
+var vijandY = 650;
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -89,11 +89,14 @@ var tekenAlles = function() {
  * return true als het gameover is
  * anders return false
  */
-var checkGameOver = function() {
+var checkGameOver = function () {
   if (spelerX - vijandX < 50 &&
-     spelerX - vijandX >-50 &&
-      spelerY - vijandY <50 &&
-      spelerY - vijandY > -50){ console.log ("Botsing") ;
+     spelerX - vijandX  > -50 &&
+      spelerY - vijandY < 50 &&
+      spelerY - vijandY > -50){
+      aantal = aantal + 1;
+    console.log ("Botsing" +aantal) 
+    return true;
                               }
   // check of HP 0 is , of tijd op is, of ...
   return false;
@@ -132,10 +135,13 @@ function draw() {
   }
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
-
+    console.log("game over");
+    textsize(20);
+    fill("white");
+    text("game over", 100, 100);
   } 
     if (spelStatus=== UITLEG){
   // teken uitleg scherm
-    }
+  console.log("uitleg");
   
 }
