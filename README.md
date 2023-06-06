@@ -19,17 +19,17 @@ https://emmauscollege.github.io/informatica/game/
         http://www.iconarchive.com/show/android-lollipop-icons-by-dtafalonso/Play-Games-icon.html
 - ...
 - Platformer
-  speler beweegt naar links en rechts
+x speler beweegt naar links en rechts
   speler kan niet van het scherm af
   maak teller die afloopt van 50 sec tot 0 sec
   game over als 0 seconde
   teken einddeur van je game
+  als je bij de deur bent dan is de tijd die je over hebt je score
+  voeg vijanden toe
+  als je een vijand raakt dan ben je af
+  -
   blok tekenen
   zorg dat je niet door blok kan maar eroverheen moet
-  voeg vijanden op een paar blokken
-  voeg punten toe op een paar blokken
-  punten verdienen door erop/ertegenaan te springen
-  game over als speler op einddeur staat en/of tijd over is of tegen een vijand aankomt
 
   
   
