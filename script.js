@@ -1,10 +1,10 @@
-      /* Game opdracht
-   Informatica - Emmauscollege Rotterdam
-   Template voor een game in JavaScript met de p5 library
+/* Game opdracht
+Informatica - Emmauscollege Rotterdam
+Template voor een game in JavaScript met de p5 library
 
-   Begin met dit template voor je game opdracht,
-   voeg er je eigen code aan toe.
- */
+Begin met dit template voor je game opdracht,
+voeg er je eigen code aan toe.
+*/
 
 /*
  * instellingen om foutcontrole van je code beter te maken 
@@ -22,8 +22,8 @@ var spelStatus = SPELEN;
 
 var spelerX = 550; // x-positie van speler
 var spelerY = 550; // y-positie van speler
-var aantal  = 0;
-var vijandX = 650; 
+var aantal = 0;
+var vijandX = 650;
 var vijandY = 650;
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
@@ -34,14 +34,18 @@ var vijandY = 650;
  */
 var beweegAlles = function() {
   // speler
-  if (keyIsDown (65)) {
- spelerX = spelerX -5; }
-    if (keyIsDown (68)) {
- spelerX = spelerX +5; }
-    if (keyIsDown (87)) {
- spelerY = spelerY -5; }
-    if (keyIsDown (83)) {
- spelerY = spelerY +5; }
+  if (keyIsDown(65)) {
+    spelerX = spelerX - 5;
+  }
+  if (keyIsDown(68)) {
+    spelerX = spelerX + 5;
+  }
+  if (keyIsDown(87)) {
+    spelerY = spelerY - 5;
+  }
+  if (keyIsDown(83)) {
+    spelerY = spelerY + 5;
+  }
   // vijand
 
   // kogel
@@ -66,8 +70,8 @@ var verwerkBotsing = function() {
  */
 var tekenAlles = function() {
   // achtergrond
- fill('green')
-  rect(0,0,1280,720);
+  fill('green')
+  rect(0, 0, 1280, 720);
   // vijand
   fill("red");
   rect(vijandX - 25, vijandY - 25, 50, 50);
@@ -89,15 +93,15 @@ var tekenAlles = function() {
  * return true als het gameover is
  * anders return false
  */
-var checkGameOver = function () {
+var checkGameOver = function() {
   if (spelerX - vijandX < 50 &&
-     spelerX - vijandX  > -50 &&
-      spelerY - vijandY < 50 &&
-      spelerY - vijandY > -50){
-      aantal = aantal + 1;
-    console.log ("Botsing" +aantal) 
+    spelerX - vijandX > -50 &&
+    spelerY - vijandY < 50 &&
+    spelerY - vijandY > -50) {
+    aantal = aantal + 1;
+    console.log("Botsing" + aantal)
     return true;
-                              }
+  }
   // check of HP 0 is , of tijd op is, of ...
   return false;
 };
@@ -139,9 +143,10 @@ function draw() {
     textsize(20);
     fill("white");
     text("game over", 100, 100);
-  } 
-    if (spelStatus=== UITLEG){
-  // teken uitleg scherm
-  console.log("uitleg");
-  
+  }
+  if (spelStatus === UITLEG) {
+    // teken uitleg scherm
+    console.log("uitleg");
+
+  }
 }
