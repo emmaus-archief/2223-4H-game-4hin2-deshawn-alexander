@@ -13,6 +13,7 @@ var levens = 3;
 
 // Instellingen
 var startAantalVijanden = 10;
+var maxAantalVijanden = 30; // Maximale limiet voor het aantal vijanden
 var vijandSnelheid = 2;
 var kogelSnelheid = 5;
 var spelerSnelheid = 5;
@@ -62,6 +63,10 @@ function beweegSpeler() {
     spelerY -= spelerSnelheid;
   } else if (keyIsDown(83) && spelerY < height) {
     spelerY += spelerSnelheid;
+  }
+  
+  if (keyIsDown(32)) {
+    schietKogel();
   }
 }
 
@@ -125,7 +130,8 @@ function controleerBotsingen() {
     }
   }
 
-  if (score > 0 && score % vijandVerhogingPerScore === 0) {
+  if (score > 0 && score % vijandVerhogingPerScore === 0 && vijanden.length < maxAantalVijanden) {
+    startAantalVijanden += 2; // Voeg 2 extra vijanden toe na behalen van punten
     vijanden.push(createVector(random(width), random(height / 2)));
   }
 }
@@ -163,5 +169,11 @@ function tekenUitlegScherm() {
 function keyPressed() {
   if (spelStatus === UITLEG && keyCode === 13) {
     spelStatus = SPELEN;
+  }
+}
+
+function schietKogel() {
+  if (frameCount % 10 === 0) {
+    kogels.push(createVector(spelerX, spelerY));
   }
 }
