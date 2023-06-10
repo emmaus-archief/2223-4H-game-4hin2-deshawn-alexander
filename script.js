@@ -1,152 +1,137 @@
-/* Game opdracht
-Informatica - Emmauscollege Rotterdam
-Template voor een game in JavaScript met de p5 library
-
-Begin met dit template voor je game opdracht,
-voeg er je eigen code aan toe.
-*/
-
-/*
- * instellingen om foutcontrole van je code beter te maken 
- */
-///<reference path="p5.global-mode.d.ts" />
-"use strict"
-
-/* ********************************************* */
-/* globale variabelen die je gebruikt in je game */
-/* ********************************************* */
+// globale variabelen
 const SPELEN = 1;
 const GAMEOVER = 2;
 const UITLEG = 8;
 var spelStatus = SPELEN;
 
-var spelerX = 550; // x-positie van speler
-var spelerY = 550; // y-positie van speler
-var aantal = 0;
-var vijandX = 650;
-var vijandY = 650;
-/* ********************************************* */
-/* functies die je gebruikt in je game           */
-/* ********************************************* */
+var spelerX;
+var spelerY;
+var vijanden = [];
+var kogels = [];
+var score = 0;
+var levens = 3;
 
-/**
- * Updatet globale variabelen met posities van speler, vijanden en kogels
- */
-var beweegAlles = function() {
-  // speler
-  if (keyIsDown(65)) {
-    spelerX = spelerX - 5;
-  }
-  if (keyIsDown(68)) {
-    spelerX = spelerX + 5;
-  }
-  if (keyIsDown(87)) {
-    spelerY = spelerY - 5;
-  }
-  if (keyIsDown(83)) {
-    spelerY = spelerY + 5;
-  }
-  // vijand
+// instellingen
+var aantalVijanden = 10;
+var vijandSnelheid = 2;
+var kogelSnelheid = 5;
+var spelerSnelheid = 5;
 
-  // kogel
-};
-
-/**
- * Checkt botsingen
- * Verwijdert neergeschoten dingen
- * Updatet globale variabelen punten en health
- */
-var verwerkBotsing = function() {
-  // botsing speler tegen vijand
-
-  // botsing kogel tegen vijand
-
-  // update punten en health
-
-};
-
-/**
- * Tekent spelscherm
- */
-var tekenAlles = function() {
-  // achtergrond
-  fill('green')
-  rect(0, 0, 1280, 720);
-  // vijand
-  fill("red");
-  rect(vijandX - 25, vijandY - 25, 50, 50);
-  fill("black");
-  ellipse(vijandX, vijandY, 10, 10);
-  // kogel
-
-  // speler
-  fill("white");
-  rect(spelerX - 25, spelerY - 25, 50, 50);
-  fill("black");
-  ellipse(spelerX, spelerY, 10, 10);
-
-  // punten en health
-
-};
-
-/**
- * return true als het gameover is
- * anders return false
- */
-var checkGameOver = function() {
-  if (spelerX - vijandX < 50 &&
-    spelerX - vijandX > -50 &&
-    spelerY - vijandY < 50 &&
-    spelerY - vijandY > -50) {
-    aantal = aantal + 1;
-    console.log("Botsing" + aantal)
-    return true;
-  }
-  // check of HP 0 is , of tijd op is, of ...
-  return false;
-};
-
-/* ********************************************* */
-/* setup() en draw() functies / hoofdprogramma   */
-/* ********************************************* */
-
-/**
- * setup
- * de code in deze functie wordt één keer uitgevoerd door
- * de p5 library, zodra het spel geladen is in de browser
- */
 function setup() {
-  // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
-  createCanvas(1280, 720);
-
-  // Kleur de achtergrond blauw, zodat je het kunt zien
-  background('blue');
+    createCanvas(windowWidth, windowHeight);
+    spelerX = width / 2;
+    spelerY = height - 50;
+    
+    for (var i = 0; i < aantalVijanden; i++) {
+        vijanden.push(createVector(random(width), random(height / 2)));
+    }
 }
 
-/**
- * draw
- * de code in deze functie wordt 50 keer per seconde
- * uitgevoerd door de p5 library, nadat de setup functie klaar is
- */
 function draw() {
-  if (spelStatus === SPELEN) {
-    beweegAlles();
-    verwerkBotsing();
-    tekenAlles();
-    if (checkGameOver()) {
-      spelStatus = GAMEOVER;
+    background(0);
+    
+    if (spelStatus === SPELEN) {
+        beweegSpeler();
+        beweegVijanden();
+        beweegKogels();
+        tekenSpeler();
+        tekenVijanden();
+        tekenKogels();
+        controleerBotsingen();
+        tekenUI();
+        
+        if (levens <= 0) {
+            spelStatus = GAMEOVER;
+        }
+    } else if (spelStatus === GAMEOVER) {
+        tekenGameOverScherm();
     }
-  }
-  if (spelStatus === GAMEOVER) {
-    // teken game-over scherm
-    console.log("game over");
-    textsize(20);
-    fill("white");
-    text("game over", 100, 100);
-  }
-  if (spelStatus === UITLEG) {
-    // teken uitleg scherm
-    console.log("uitleg");
+}
 
-  }
+function beweegSpeler() {
+    if (keyIsDown(65) && spelerX > 0) { // 'A' toets
+        spelerX -= spelerSnelheid;
+    } else if (keyIsDown(68) && spelerX < width) { // 'D' toets
+        spelerX += spelerSnelheid;
+    } else if (keyIsDown(87) && spelerY > 0) { // 'W' toets
+        spelerY -= spelerSnelheid;
+    } else if (keyIsDown(83) && spelerY < height) { // 'S' toets
+        spelerY += spelerSnelheid;
+    }
+}
+
+function beweegVijanden() {
+    for (var i = 0; i < vijanden.length; i++) {
+        vijanden[i].y += vijandSnelheid;
+        
+        if (vijanden[i].y > height) {
+            vijanden[i].y = random(-200, -100);
+            vijanden[i].x = random(width);
+        }
+    }
+}
+
+function beweegKogels() {
+    for (var i = kogels.length - 1; i >= 0; i--) {
+        kogels[i].y -= kogelSnelheid;
+        
+        if (kogels[i].y < 0) {
+            kogels.splice(i, 1);
+        }
+    }
+}
+
+function tekenSpeler() {
+    fill(255);
+    rect(spelerX - 25, spelerY - 25, 50, 50);
+    fill(0);
+    ellipse(spelerX, spelerY, 10, 10);
+}
+
+function tekenVijanden() {
+    for (var i = 0; i < vijanden.length; i++) {
+        fill(255, 0, 0);
+        rect(vijanden[i].x - 25, vijanden[i].y - 25, 50, 50);
+    }
+}
+
+function tekenKogels() {
+    for (var i = 0; i < kogels.length; i++) {
+        fill(0, 255, 0);
+        rect(kogels[i].x - 5, kogels[i].y - 15, 10, 30);
+    }
+}
+
+function controleerBotsingen() {
+    for (var i = vijanden.length - 1; i >= 0; i--) {
+        for (var j = kogels.length - 1; j >= 0; j--) {
+            if (dist(vijanden[i].x, vijanden[i].y, kogels[j].x, kogels[j].y) < 25) {
+                vijanden.splice(i, 1);
+                kogels.splice(j, 1);
+                score++;
+            }
+        }
+        
+        if (dist(vijanden[i].x, vijanden[i].y, spelerX, spelerY) < 25) {
+            vijanden.splice(i, 1);
+            levens--;
+        }
+    }
+}
+
+function tekenUI() {
+    fill(255);
+    textSize(24);
+    text("Score: " + score, 10, 30);
+    text("Levens: " + levens, 10, 60);
+}
+
+function tekenGameOverScherm() {
+    background(0);
+    fill(255);
+    textSize(48);
+    textAlign(CENTER, CENTER);
+    text("Game Over", width / 2, height / 2);
+    textSize(24);
+    text("Score: " + score, width / 2, height / 2 + 50);
 }
