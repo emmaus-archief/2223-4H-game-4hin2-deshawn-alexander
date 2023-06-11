@@ -97,6 +97,21 @@ function tekenSpeler() {
   fill(0);
   ellipse(spelerX, spelerY, 10, 10);
 }
+// ...
+
+var spelerAfbeelding;
+
+function preload() {
+  spelerAfbeelding = loadImage('vliegtuig1.png');
+}
+
+function tekenSpeler() {
+  image(spelerAfbeelding, spelerX - 25, spelerY - 25, 50, 50);
+}
+
+// ...
+
+
 
 function tekenVijanden() {
   for (var i = 0; i < vijanden.length; i++) {
