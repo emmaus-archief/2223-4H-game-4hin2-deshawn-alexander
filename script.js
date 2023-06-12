@@ -25,6 +25,10 @@ var achtergrondAfbeelding;
 var spelerAfbeelding;
 var vijandAfbeelding;
 
+var knopStatus = KLAAR;
+const KLAAR = 0;
+const INGEDRUKT = 1;
+
 function preload() {
   achtergrondAfbeelding = loadImage('Galaxy.jpg');
   spelerAfbeelding = loadImage('vliegtuig1.png');
@@ -61,6 +65,7 @@ function draw() {
     }
   } else if (spelStatus === GAMEOVER) {
     tekenGameOverScherm();
+    tekenSpeelOpnieuwKnop();
   }
 }
 
@@ -170,6 +175,33 @@ function tekenUitlegScherm() {
   text("Schiet met de spatiebalk.", width / 2, height / 2 + 50);
   text("Vernietig rode vliegtuigjes en vermijd botsingen.", width / 2, height / 2 + 100);
   text("Druk op ENTER om te starten.", width / 2, height / 2 + 200);
+}
+
+function tekenSpeelOpnieuwKnop() {
+  fill(255);
+  rect(width / 2 - 100, height / 2 + 150, 200, 50);
+  fill(0);
+  textSize(24);
+  textAlign(CENTER, CENTER);
+  text("Speel opnieuw", width / 2, height / 2 + 175);
+}
+
+function mousePressed() {
+  if (spelStatus === GAMEOVER && mouseX > width / 2 - 100 && mouseX < width / 2 + 100 && mouseY > height / 2 + 150 && mouseY < height / 2 + 200) {
+    spelStatus = UITLEG;
+    resetSpel();
+  }
+}
+
+function resetSpel() {
+  score = 0;
+  levens = 3;
+  vijanden = [];
+  kogels = [];
+
+  for (var i = 0; i < startAantalVijanden; i++) {
+    vijanden.push(createVector(random(width), random(height / 2)));
+  }
 }
 
 function keyPressed() {
