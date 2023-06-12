@@ -21,6 +21,16 @@ var vijandVerhogingPerScore = 2;
 var vijandSnelheidVerhoging = 0.5;
 var kogelSnelheidVerhoging = 0.5;
 
+var achtergrondAfbeelding;
+var spelerAfbeelding;
+var vijandAfbeelding;
+
+function preload() {
+  achtergrondAfbeelding = loadImage('Galaxy.jpg');
+  spelerAfbeelding = loadImage('vliegtuig1.png');
+  vijandAfbeelding = loadImage('pplane.png');
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   spelerX = width / 2;
@@ -32,7 +42,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(achtergrondAfbeelding);
 
   if (spelStatus === UITLEG) {
     tekenUitlegScherm();
@@ -92,31 +102,12 @@ function beweegKogels() {
 }
 
 function tekenSpeler() {
-  fill(255);
-  rect(spelerX - 25, spelerY - 25, 50, 50);
-  fill(0);
-  ellipse(spelerX, spelerY, 10, 10);
-}
-// ...
-
-var spelerAfbeelding;
-
-function preload() {
-  spelerAfbeelding = loadImage('vliegtuig1.png');
-}
-
-function tekenSpeler() {
   image(spelerAfbeelding, spelerX - 25, spelerY - 25, 50, 50);
 }
 
-// ...
-
-
-
 function tekenVijanden() {
   for (var i = 0; i < vijanden.length; i++) {
-    fill(255, 0, 0);
-    rect(vijanden[i].x - 25, vijanden[i].y - 25, 50, 50);
+    image(vijandAfbeelding, vijanden[i].x - 25, vijanden[i].y - 25, 50, 50);
   }
 }
 
