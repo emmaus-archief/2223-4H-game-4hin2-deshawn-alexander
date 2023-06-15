@@ -1,4 +1,14 @@
-// Globale variabelen
+/* Game opdracht
+    Informatica - Emmauscollege Rotterdam
+    Template voor een game in JavaScript met de p5 library
+
+   Begin met dit template voor je game opdracht,
+   voeg er je eigen code aan toe.
+*/
+
+/* ********************************************* */
+/* globale variabelen die je gebruikt in je game */
+/* ********************************************* */
 const SPELEN = 1;
 const GAMEOVER = 2;
 const UITLEG = 8;
